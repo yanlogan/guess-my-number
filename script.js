@@ -7,7 +7,12 @@ const checkBtn = document.querySelector('.check');
 const number = document.querySelector('.number');
 const score = document.querySelector('.score');
 const highScore = document.querySelector('.highscore');
-const randomNumber = Math.trunc(Math.random() * 100) + 1;
+
+const generateNumber = () => {
+  return Math.trunc(Math.random() * 100) + 1;
+};
+
+let randomNumber = generateNumber();
 console.log(randomNumber);
 
 checkBtn.addEventListener('click', () => {
