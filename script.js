@@ -4,20 +4,31 @@ const body = document.querySelector('body');
 const input = document.querySelector('.guess');
 const message = document.querySelector('.message');
 const checkBtn = document.querySelector('.check');
+const againBtn = document.querySelector('.again');
 const number = document.querySelector('.number');
 const scoreEl = document.querySelector('.score');
 const highScoreEl = document.querySelector('.highscore');
+let randomNumber = 0;
 
 const generateNumber = () => {
   return Math.trunc(Math.random() * 100) + 1;
 };
 
-// TODO: add resetGame() function
+const resetGame = () => {
+  input.value = '';
+  checkBtn.disabled = false;
+  number.textContent = '?';
+  number.style.width = '15rem';
+  body.style.backgroundColor = '#eee';
+  message.textContent = 'Start guessing...';
+  score = 100;
+  scoreEl.textContent = score;
+  randomNumber = generateNumber();
+};
 
-let randomNumber = generateNumber();
-console.log(randomNumber);
+randomNumber = generateNumber();
 
-let score = 10;
+let score = 100;
 let highScore = 0;
 scoreEl.textContent = score;
 highScoreEl.textContent = highScore;
@@ -25,21 +36,19 @@ highScoreEl.textContent = highScore;
 checkBtn.addEventListener('click', () => {
   if (score > 0) {
     const guess = Number(input.value);
-    // TODO: check if 0 <= guess <= 100
     if (!guess) {
       message.textContent = '⛔ No number!';
+    } else if (guess < 1 || guess > 100) {
+      message.textContent = '⛔ Number must be between 1 and 100!';
     } else if (guess === randomNumber) {
-      number.textContent = guess;
       message.textContent = '🎉 Congrats!';
       if (score > highScore) {
         highScore = score;
         highScoreEl.textContent = highScore;
       }
-      // resetGame();
-      // FIXME: change score only on reset
-      score = 10;
-      scoreEl.textContent = score;
+      checkBtn.disabled = true;
       body.style.backgroundColor = '#60b347';
+      number.textContent = guess;
       number.style.width = '25rem';
     } else if (guess > randomNumber) {
       message.textContent = '📈 Too high!';
@@ -52,9 +61,9 @@ checkBtn.addEventListener('click', () => {
     }
     if (!score) {
       message.textContent = '💥 You lost!';
-      // resetGame();
+      checkBtn.disabled = true;
     }
   }
 });
 
-// TODO: add an event listener to the again button to reset the game and regenerate the random number
+againBtn.addEventListener('click', () => resetGame());
