@@ -14,19 +14,17 @@ checkBtn.addEventListener('click', () => {
   const guess = Number(input.value);
   if (!guess) {
     message.textContent = '⛔ No number!';
+  } else if (guess === randomNumber) {
+    number.textContent = guess;
+    message.textContent = '🎉 Congrats!';
+    highScore.textContent = score.textContent;
+    score.textContent = 20;
+    // TODO: change bg color to green
+    // TODO: disable the check button
   } else {
-    if (guess === randomNumber) {
-      number.textContent = guess;
-      message.textContent = '🎉 Congrats!';
-      highScore.textContent = score.textContent;
-      score.textContent = 20;
-      // TODO: change bg color to green
-      // TODO: disable the check button
-    } else {
-      // TODO: change message depending on whether the number is less or more
-      message.textContent = '❌ Try again';
-      score.textContent = Number(score.textContent) - 1;
-    }
+    // TODO: change message depending on whether the number is less or more
+    message.textContent = '❌ Try again';
+    score.textContent = Number(score.textContent) - 1;
   }
 });
 
