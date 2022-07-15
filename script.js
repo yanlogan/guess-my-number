@@ -5,31 +5,55 @@ const input = document.querySelector('.guess');
 const message = document.querySelector('.message');
 const checkBtn = document.querySelector('.check');
 const number = document.querySelector('.number');
-const score = document.querySelector('.score');
-const highScore = document.querySelector('.highscore');
+const scoreEl = document.querySelector('.score');
+const highScoreEl = document.querySelector('.highscore');
 
 const generateNumber = () => {
   return Math.trunc(Math.random() * 100) + 1;
 };
 
+// TODO: add resetGame() function
+
 let randomNumber = generateNumber();
 console.log(randomNumber);
 
+let score = 10;
+let highScore = 0;
+scoreEl.textContent = score;
+highScoreEl.textContent = highScore;
+
 checkBtn.addEventListener('click', () => {
-  const guess = Number(input.value);
-  if (!guess) {
-    message.textContent = '⛔ No number!';
-  } else if (guess === randomNumber) {
-    number.textContent = guess;
-    message.textContent = '🎉 Congrats!';
-    highScore.textContent = score.textContent;
-    score.textContent = 20;
-    // TODO: change bg color to green
-    // TODO: disable the check button
-  } else {
-    // TODO: change message depending on whether the number is less or more
-    message.textContent = '❌ Try again';
-    score.textContent = Number(score.textContent) - 1;
+  if (score > 0) {
+    const guess = Number(input.value);
+    // TODO: check if 0 <= guess <= 100
+    if (!guess) {
+      message.textContent = '⛔ No number!';
+    } else if (guess === randomNumber) {
+      number.textContent = guess;
+      message.textContent = '🎉 Congrats!';
+      if (score > highScore) {
+        highScore = score;
+        highScoreEl.textContent = highScore;
+      }
+      // resetGame();
+      // FIXME: change score only on reset
+      score = 10;
+      scoreEl.textContent = score;
+      // TODO: change bg color to green
+      // TODO: disable the check button
+    } else if (guess > randomNumber) {
+      message.textContent = '📈 Too high!';
+      score--;
+      scoreEl.textContent = score;
+    } else {
+      message.textContent = '📉 Too low!';
+      score--;
+      scoreEl.textContent = score;
+    }
+    if (!score) {
+      message.textContent = '💥 You lost!';
+      // TODO: disable the check button
+    }
   }
 });
 
