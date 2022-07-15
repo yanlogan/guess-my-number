@@ -39,8 +39,8 @@ checkBtn.addEventListener('click', () => {
       // FIXME: change score only on reset
       score = 10;
       scoreEl.textContent = score;
-      // TODO: change bg color to green
-      // TODO: disable the check button
+      body.style.backgroundColor = '#60b347';
+      number.style.width = '25rem';
     } else if (guess > randomNumber) {
       message.textContent = '📈 Too high!';
       score--;
@@ -52,7 +52,7 @@ checkBtn.addEventListener('click', () => {
     }
     if (!score) {
       message.textContent = '💥 You lost!';
-      // TODO: disable the check button
+      // resetGame();
     }
   }
 });
