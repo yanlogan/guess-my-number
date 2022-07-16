@@ -16,13 +16,15 @@ const generateNumber = () => {
   return Math.trunc(Math.random() * 100) + 1;
 };
 
+const displayMessage = text => (message.textContent = text);
+
 const resetGame = () => {
   input.value = '';
   checkBtn.disabled = false;
   number.textContent = '?';
   number.style.width = '15rem';
   body.style.backgroundColor = '#222';
-  message.textContent = 'Start guessing...';
+  displayMessage('Start guessing...');
   score = 100;
   scoreEl.textContent = score;
   randomNumber = generateNumber();
@@ -39,11 +41,11 @@ checkBtn.addEventListener('click', () => {
   if (score > 0) {
     const guess = Number(input.value);
     if (!guess) {
-      message.textContent = '⛔ No number!';
+      displayMessage('⛔ No number!');
     } else if (guess < 1 || guess > 100) {
-      message.textContent = '⛔ Number must be between 1 and 100!';
+      displayMessage('⛔ Number must be between 1 and 100!');
     } else if (guess === randomNumber) {
-      message.textContent = '🎉 Congrats!';
+      displayMessage('🎉 Congrats!');
       if (score > highScore) {
         highScore = score;
         highScoreEl.textContent = highScore;
@@ -52,19 +54,15 @@ checkBtn.addEventListener('click', () => {
       body.style.backgroundColor = '#60b347';
       number.textContent = guess;
       number.style.width = '25rem';
-    } else if (guess > randomNumber) {
-      message.textContent = '📈 Too high!';
-      score--;
-      scoreEl.textContent = score;
     } else {
-      message.textContent = '📉 Too low!';
+      const text = guess > randomNumber ? '📈 Too high!' : '📉 Too low!';
+      displayMessage(text);
       score--;
       scoreEl.textContent = score;
     }
-    if (!score) {
-      message.textContent = '💥 You lost!';
-      checkBtn.disabled = true;
-    }
+  } else {
+    displayMessage('💥 You lost!');
+    checkBtn.disabled = true;
   }
 });
 
