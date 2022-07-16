@@ -1,7 +1,5 @@
 'use strict';
 
-// TODO: refactor (DRY)
-
 const body = document.querySelector('body');
 const input = document.querySelector('.guess');
 const message = document.querySelector('.message');
