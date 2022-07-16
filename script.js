@@ -1,5 +1,7 @@
 'use strict';
 
+// TODO: refactor (DRY)
+
 const body = document.querySelector('body');
 const input = document.querySelector('.guess');
 const message = document.querySelector('.message');
@@ -19,7 +21,7 @@ const resetGame = () => {
   checkBtn.disabled = false;
   number.textContent = '?';
   number.style.width = '15rem';
-  body.style.backgroundColor = '#eee';
+  body.style.backgroundColor = '#222';
   message.textContent = 'Start guessing...';
   score = 100;
   scoreEl.textContent = score;
